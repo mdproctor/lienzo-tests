@@ -18,6 +18,7 @@
 
 package com.ait.lienzo.client.core.shape.wires;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -27,11 +28,16 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.ait.lienzo.client.core.shape.Layer;
+import com.ait.lienzo.client.core.shape.wires.MagnetManager.Magnets;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.shape.IPrimitive;
+import com.ait.lienzo.client.core.shape.MultiPath;
 import com.ait.lienzo.client.core.util.ScratchPad;
 import com.ait.lienzo.test.LienzoMockitoTestRunner;
 import com.ait.tooling.nativetools.client.collection.NFastStringMap;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -50,6 +56,20 @@ public class MagnetManagerTest
 
     @Mock
     private NFastStringMap<WiresMagnet> magnetsColors;
+
+    private static final String LAYER_ID = "theLayer";
+
+    private     Layer                       layer;
+
+    private     WiresManager                tested;
+
+    @Before
+    public void setup()
+    {
+        layer = spy(new Layer());
+        layer.setID(LAYER_ID);
+        tested = WiresManager.get(layer);
+    }
 
     @Test
     public void testDrawMagnetsToBack()
@@ -108,5 +128,15 @@ public class MagnetManagerTest
         // Magnet is drawn
         verify(context).beginPath();
         verify(context).stroke();
+    }
+
+    @Test
+    public void testMagnetRectangle()
+    {
+//        WiresShape wiresShape = new WiresShape(new MultiPath().rect(0, 0, 100, 100).setStrokeColor("#00CC00")).setX(50).setY(50).setDraggable(true);
+//        tested.register(wiresShape);
+//        tested.getMagnetManager().createMagnets(wiresShape);
+//        Magnets magnets = wiresShape.getMagnets();
+//        assertEquals( 10, magnets.size() );
     }
 }
